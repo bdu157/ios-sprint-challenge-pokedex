@@ -22,7 +22,6 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
     
     var searchResultController: SearchResultController?
     var searchResult: SearchResult?
-
     
 
     override func viewDidLoad() {
@@ -33,7 +32,7 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
             uiAppear()
             updateViews(with: searchResult)
             navigationItem.title = searchResult.name
-            self.searchResultController?.fetchImage(at: searchResult.sprite, completion: { (result) in
+            self.searchResultController?.fetchImage(at: searchResult.sprite.frontDefault, completion: { (result) in
                 if let image = try? result.get() {
                     DispatchQueue.main.async {
                         self.imageView.image = image
@@ -59,7 +58,7 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
                     self.uiAppear()
                     self.updateViews(with: pokemon)
                 }
-                self.searchResultController?.fetchImage(at: pokemon.sprite, completion: { (result) in
+                self.searchResultController?.fetchImage(at: pokemon.sprite.frontDefault, completion: { (result) in
                     if let image = try? result.get(){
                         DispatchQueue.main.async {
                             self.imageView.image = image
@@ -75,7 +74,7 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         //???  appennd searchresult to own array. if searchResult == nil {
-            
+
             self.navigationController?.popViewController(animated: true)
         //}
     }
@@ -84,8 +83,8 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
             navigationItem.title = pokemon.name
             self.nameLabel.text = pokemon.name
             self.idLabel.text = String(pokemon.id)
-           //?? self.abilityLabel.text = searchResult.abilities
-           //?? self.typeLabel.text = searchResult.types
+            self.abilityLabel.text = searchResult?.abilities[0].ability.name
+            self.typeLabel.text = searchResult?.types[0].type.name
     }
     
     func uiAppear() {

@@ -44,6 +44,12 @@ class SearchResultController {
             
             do {
                 let pokemon = try decoder.decode(SearchResult.self, from:data)
+                
+                
+                
+                
+                
+                
                 self.searchResults.append(pokemon)  //this is just being appeneded when search occurs but we need to append this when save button is clicked
                 completion(.success(pokemon))
             } catch {
@@ -66,19 +72,13 @@ class SearchResultController {
                 completion(.failure(.otherError))
                 return
             }
-            
             guard let data = data else {
                 completion(.failure(.badData))
                 return
             }
-            
             let image = UIImage(data: data)!
             completion(.success(image))
         } .resume()
     }
-    
-    
-    
-    
-    
+
 }
