@@ -39,7 +39,6 @@
                     <navigationItem key="navigationItem" title="Pokedex" id="lp3-5q-hxI">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="KwD-Ha-wiv">
                             <connections>
-                                <action selector="searchButton:" destination="uTN-GA-3Hd" id="7HS-D0-BJc"/>
                                 <segue destination="xUb-M2-vnE" kind="show" identifier="ToSearchVCfromSearch" id="Z8H-re-7RU"/>
                             </connections>
                         </barButtonItem>
@@ -174,6 +173,7 @@
                         <outlet property="abilityLabel" destination="nf4-ib-ls0" id="MXc-S2-ltM"/>
                         <outlet property="idLabel" destination="s6X-VV-3JA" id="XFi-tc-MPm"/>
                         <outlet property="imageView" destination="u0m-sb-kBd" id="bQe-hj-9GZ"/>
+                        <outlet property="infoStackView" destination="1XG-X8-59Y" id="qZg-MO-aUW"/>
                         <outlet property="nameLabel" destination="o9i-p8-QbC" id="JUf-2f-ewm"/>
                         <outlet property="saveButton" destination="9M2-ga-ZSl" id="ga0-uU-He3"/>
                         <outlet property="searchBar" destination="BJF-Pz-N6A" id="m1B-4A-hP9"/>

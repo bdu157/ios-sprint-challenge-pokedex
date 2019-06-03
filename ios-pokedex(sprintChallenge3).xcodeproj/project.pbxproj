@@ -65,10 +65,10 @@
 				0BED5D9922A2DD430098E40D /* Assets.xcassets */,
 				0BED5D9B22A2DD430098E40D /* LaunchScreen.storyboard */,
 				0BED5D9E22A2DD430098E40D /* Info.plist */,
-				0BED5DA422A2F53D0098E40D /* NameListTableViewController.swift */,
 				0BED5DA622A2F57A0098E40D /* SearchDetailViewController.swift */,
-				0BED5DA822A2F7E20098E40D /* SearchResult.swift */,
+				0BED5DA422A2F53D0098E40D /* NameListTableViewController.swift */,
 				0BED5DAA22A2FB620098E40D /* SearchResultController.swift */,
+				0BED5DA822A2F7E20098E40D /* SearchResult.swift */,
 			);
 			path = "ios-pokedex(sprintChallenge3)";
 			sourceTree = "<group>";
