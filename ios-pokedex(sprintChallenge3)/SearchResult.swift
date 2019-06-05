@@ -35,7 +35,8 @@ struct Pokemon: Codable {
     }
 }
 
-//http://poke-api.co/api/v2/pokemon/name
+//https://pokeapi.co/
+//http://poke-api.co/api/v2/pokemon/name => this name has to be lowercase
 /*
  
  {

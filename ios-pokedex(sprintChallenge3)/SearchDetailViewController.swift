@@ -30,7 +30,6 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
         if let pokemon = pokemons {
             uiAppear()
             updateViews(with: pokemon)
-            navigationItem.title = pokemon.name
             self.searchResultController?.fetchImage(at: pokemon.sprites.frontDefault, completion: { (result) in
                 if let image = try? result.get() {
                     DispatchQueue.main.async {
@@ -62,6 +61,7 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
                 DispatchQueue.main.async {
                     self.uiAppear()
                     self.updateViews(with: pokemon)
+                 //   self.pokemons = pokemon
                 }
                 self.searchResultController?.fetchImage(at: pokemon.sprites.frontDefault, completion: { (result) in
                     if let image = try? result.get(){
@@ -79,14 +79,14 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         //???  appennd searchresult to own array. if searchResult == nil {
-
+        
             self.navigationController?.popViewController(animated: true)
         //}
     }
     
     func updateViews(with pokemon: Pokemon) {
-            navigationItem.title = pokemon.name
-            self.nameLabel.text = pokemon.name
+            navigationItem.title = pokemon.name.capitalized
+            self.nameLabel.text = pokemon.name.capitalized
             self.idLabel.text = String(pokemon.id)
             self.abilityLabel.text = pokemon.abilities[0].ability.name
             self.typeLabel.text = pokemon.types[0].type.name

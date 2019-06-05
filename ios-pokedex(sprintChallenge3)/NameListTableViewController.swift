@@ -12,6 +12,11 @@ class NameListTableViewController: UITableViewController {
     
     var searchResultController = SearchResultController()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+            self.tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,7 +30,7 @@ class NameListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let name = searchResultController.pokemons[indexPath.row]
-        cell.textLabel?.text = name.name
+        cell.textLabel?.text = name.name.capitalized
         return cell
     }
 
