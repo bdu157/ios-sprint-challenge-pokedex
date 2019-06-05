@@ -61,7 +61,7 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
                 DispatchQueue.main.async {
                     self.uiAppear()
                     self.updateViews(with: pokemon)
-                 //   self.pokemons = pokemon
+                    self.pokemons = pokemon    // you give this pokemon to pokemons above and you use this to use createPokemon method/with empty array of Pokemon in modelcontroller
                 }
                 self.searchResultController?.fetchImage(at: pokemon.sprites.frontDefault, completion: { (result) in
                     if let image = try? result.get(){
@@ -79,7 +79,8 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         //???  appennd searchresult to own array. if searchResult == nil {
-        
+        guard let pokemon = pokemons else {return}
+            self.searchResultController?.createPokemons(for: pokemon)
             self.navigationController?.popViewController(animated: true)
         //}
     }

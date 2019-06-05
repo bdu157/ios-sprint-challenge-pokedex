@@ -17,12 +17,13 @@ enum NetworkError: Error {
 
 class SearchResultController {
 
-
-    
-    
-    
-    
     var pokemons : [Pokemon] = []
+    
+    
+    func createPokemons(for result: Pokemon) {
+        self.pokemons.append(result)
+    }
+    
     
     let basicURL = URL(string: "https://pokeapi.co/api/v2/pokemon")!
     
@@ -53,7 +54,7 @@ class SearchResultController {
             do {
                 let pokemon = try decoder.decode(Pokemon.self, from:data)
               //  self.pokemons = [pokemon]   same as below
-              self.pokemons.append(pokemon)  //this is just being appeneded when search occurs but we need to append this when save button is clicked
+             // self.pokemons.append(pokemon)  //this is just being appeneded when search occurs but we need to append this when save button is clicked
                 completion(pokemon, nil)
             } catch {
                 print(error)
