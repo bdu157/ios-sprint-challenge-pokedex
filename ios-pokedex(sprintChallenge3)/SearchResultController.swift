@@ -15,26 +15,26 @@ enum NetworkError: Error {
     case noDecode
 }
 
-
 class SearchResultController {
-    let basicURL = URL(string: "https://pokeapi.co/api/v2")!
+    let basicURL = URL(string: "https://pokeapi.co/api/v2/pokemon")!
     
-    var searchResults : [SearchResult] = []
+    var pokemons : [Pokemon] = []
     
-    func perfomSearch(for searchTerm: String, completion: @escaping (Result<SearchResult, NetworkError>) -> Void) {
-        let pokemonURL = basicURL.appendingPathComponent("pokemon/\(searchTerm)")
+    func perfomSearch(for searchTerm: String, completion: @escaping (Pokemon?, Error?) -> Void) {
+    
+        let pokemonURL = basicURL.appendingPathComponent(searchTerm.lowercased())
         
         var request = URLRequest(url: pokemonURL)
         request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let _ = error {
-                completion(.failure(.otherError))
+                completion(nil, error)
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.badData))
+                completion(nil, error)
                 return
             }
             
@@ -43,22 +43,18 @@ class SearchResultController {
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
             do {
-                let pokemon = try decoder.decode(SearchResult.self, from:data)
-                
-                
-                
-                
-                
-                
-                self.searchResults.append(pokemon)  //this is just being appeneded when search occurs but we need to append this when save button is clicked
-                completion(.success(pokemon))
+                let pokemon = try decoder.decode(Pokemon.self, from:data)
+                self.pokemons = [pokemon]
+              //  self.searchResults.append(pokemon)  //this is just being appeneded when search occurs but we need to append this when save button is clicked
+                completion(pokemon, nil)
             } catch {
                 print(error)
-                completion(.failure(.noDecode))
+                completion(nil, error)
                 return
             }
         }.resume()
     }
+    
     
     //fetching the image
     func fetchImage(at urlString: String, completion: @escaping (Result<UIImage, NetworkError>)->Void) {

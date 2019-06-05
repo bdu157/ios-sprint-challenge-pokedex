@@ -8,32 +8,32 @@
 
 import Foundation
 
-
-
-struct SearchResult: Codable {
+struct Pokemon: Codable {
     let id: Int
     let name: String
     let abilities: [Ability]
-    let types: [Type]
-    let sprite: Image
+    let types: [pokemonType]
+    let sprites: Images
+    
+    struct Ability: Codable {
+        let ability: NestedAbility
+        
+        struct NestedAbility: Codable {
+            let name: String
+        }
+    }
+    
+    struct pokemonType: Codable {
+        let type: NestedType
+        
+        struct NestedType: Codable {
+            let name: String
+        }
+    }
+    struct Images: Codable {
+        let frontDefault: String
+    }
 }
-
-struct Ability: Codable {
-    let ability: Results
-    }
-
-struct Type: Codable {
-    let type: Results
-    }
-
-struct Results: Codable {
-    let name: String
-    }
-
-struct Image: Codable {
-    let frontDefault: String
-}
-
 
 //http://poke-api.co/api/v2/pokemon/name
 /*

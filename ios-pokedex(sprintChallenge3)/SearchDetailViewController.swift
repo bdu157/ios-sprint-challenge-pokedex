@@ -10,7 +10,6 @@ import UIKit
 
 class SearchDetailViewController: UIViewController, UISearchBarDelegate {
 
-    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -21,18 +20,18 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var infoStackView: UIStackView!
     
     var searchResultController: SearchResultController?
-    var searchResult: SearchResult?
+    var pokemons: Pokemon?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchBar.delegate = self
         
-        if let searchResult = searchResult {
+        if let pokemon = pokemons {
             uiAppear()
-            updateViews(with: searchResult)
-            navigationItem.title = searchResult.name
-            self.searchResultController?.fetchImage(at: searchResult.sprite.frontDefault, completion: { (result) in
+            updateViews(with: pokemon)
+            navigationItem.title = pokemon.name
+            self.searchResultController?.fetchImage(at: pokemon.sprites.frontDefault, completion: { (result) in
                 if let image = try? result.get() {
                     DispatchQueue.main.async {
                         self.imageView.image = image
@@ -41,9 +40,10 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
             })
         } else {
             uiDisappear()
-            navigationItem.title = "Pokemon Search"
+            DispatchQueue.main.async {
+             self.navigationItem.title = "Pokemon Search"
+            }
         }
-
     }
 
     
@@ -52,13 +52,18 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
         
         guard let searchTerm = self.searchBar.text,
         let searchResultControllerPassed = searchResultController else {return}
-            searchResultControllerPassed.perfomSearch(for: searchTerm) { (result) in
-            if let pokemon = try? result.get() {
+            searchResultControllerPassed.perfomSearch(for: searchTerm) { (pokemon, error) in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                if let pokemon = pokemon {
                 DispatchQueue.main.async {
                     self.uiAppear()
                     self.updateViews(with: pokemon)
                 }
-                self.searchResultController?.fetchImage(at: pokemon.sprite.frontDefault, completion: { (result) in
+                self.searchResultController?.fetchImage(at: pokemon.sprites.frontDefault, completion: { (result) in
                     if let image = try? result.get(){
                         DispatchQueue.main.async {
                             self.imageView.image = image
@@ -79,12 +84,12 @@ class SearchDetailViewController: UIViewController, UISearchBarDelegate {
         //}
     }
     
-    func updateViews(with pokemon: SearchResult) {
+    func updateViews(with pokemon: Pokemon) {
             navigationItem.title = pokemon.name
             self.nameLabel.text = pokemon.name
             self.idLabel.text = String(pokemon.id)
-            self.abilityLabel.text = searchResult?.abilities[0].ability.name
-            self.typeLabel.text = searchResult?.types[0].type.name
+            self.abilityLabel.text = pokemon.abilities[0].ability.name
+            self.typeLabel.text = pokemon.types[0].type.name
     }
     
     func uiAppear() {

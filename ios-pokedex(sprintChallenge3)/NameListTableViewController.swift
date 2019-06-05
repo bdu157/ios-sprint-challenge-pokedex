@@ -19,12 +19,12 @@ class NameListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResultController.searchResults.count
+        return searchResultController.pokemons.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let name = searchResultController.searchResults[indexPath.row]
+        let name = searchResultController.pokemons[indexPath.row]
         cell.textLabel?.text = name.name
         return cell
     }
@@ -40,7 +40,7 @@ class NameListTableViewController: UITableViewController {
             guard let destVC = segue.destination as? SearchDetailViewController,
                 let selectedRow = tableView.indexPathForSelectedRow else {return}
                 destVC.searchResultController = self.searchResultController
-                destVC.searchResult = self.searchResultController.searchResults[selectedRow.row]
+                destVC.pokemons = self.searchResultController.pokemons[selectedRow.row]
         }
     }
 }
