@@ -33,6 +33,12 @@ class NameListTableViewController: UITableViewController {
         cell.textLabel?.text = name.name.capitalized
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            let selectedPokemon = self.searchResultController.pokemons[indexPath.row]
+        self.searchResultController.deletePokemon(for: selectedPokemon)
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
+    }
 
     // MARK: - Navigation
 

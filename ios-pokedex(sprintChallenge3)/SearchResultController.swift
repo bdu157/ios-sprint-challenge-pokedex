@@ -24,6 +24,12 @@ class SearchResultController {
         self.pokemons.append(result)
     }
     
+    func deletePokemon(for pokemon: Pokemon) {
+        guard let index = pokemons.firstIndex(of: pokemon) else {return}
+            self.pokemons.remove(at: index)
+    }
+    
+    
     
     let basicURL = URL(string: "https://pokeapi.co/api/v2/pokemon")!
     
